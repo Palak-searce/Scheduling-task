@@ -15,8 +15,10 @@ def index(request):
             profile = form.cleaned_data["profile"]
             sDate = form.cleaned_data["s_date"]
             eDate = form.cleaned_data["e_date"]
-            # if sDate > eDate:
-            #     raise ValidationError("StartDate must be smaller than EndDate !")
+            if sDate > eDate:
+                form = my_form()
+                myerror = "EndDate must be greater than StartDate !"
+                return render(request,'homepage.html',{'form':form,'myerror':myerror})
             task1.insert_profile(user,profile,sDate,eDate)
             return render(request,'thank_you.html')
         else:
