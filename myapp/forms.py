@@ -19,8 +19,3 @@ class my_form(forms.Form):
     profile = forms.CharField(label='Enter user profile')
     s_date = forms.CharField(label='Enter StartDate',validators = [check_valid_date])
     e_date = forms.CharField(label='Enter EndDate',validators = [check_valid_date])
-
-    # def clean(self):
-    #     form_data = self.cleaned_data.get('user')
-    #     return form_data
-    

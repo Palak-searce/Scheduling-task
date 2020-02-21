@@ -3,6 +3,8 @@ from .forms import my_form
 from . import task1
 import json
 from django.core.exceptions import ValidationError
+from django.shortcuts import redirect
+
 
 # Create your views here.
 
@@ -16,11 +18,10 @@ def index(request):
             sDate = form.cleaned_data["s_date"]
             eDate = form.cleaned_data["e_date"]
             if sDate > eDate:
-                form = my_form()
                 myerror = "EndDate must be greater than StartDate !"
                 return render(request,'homepage.html',{'form':form,'myerror':myerror})
             task1.insert_profile(user,profile,sDate,eDate)
-            return render(request,'thank_you.html')
+            return redirect('detail', uname=user)
         else:
             print("not valid form")
             print(form.errors)
@@ -40,3 +41,8 @@ def thank_you(request):
 
 def about(request):
     return render(request,'about.html')
+
+def detail(request,uname):
+    uName = uname
+    single_user_profiles = task1.get_single_user(uName)
+    return render(request,'detail.html',{'profiles':single_user_profiles,'uname':uname})

@@ -10,4 +10,11 @@
         <p>newly added profile will be on highest priority</p>
         <p>it will also sort all profiles of same user</p>        
     </div>
+
+    {% for i in profiles %}
+      {{i.profile}}
+      {{i.sDate}}
+      {{i.eDate}}
+    {% endfor %}
+
   {% endblock %}

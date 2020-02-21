@@ -11,10 +11,14 @@
         <form method = "POST"> 
             {{form.as_p}}
             {% csrf_token %}
+
+            {% if myerror %}
             <li>
               {{myerror}}
             </li> 
             <br>
+            {% endif %}
+            
         <input type = "submit" class= "btn btn-secondary" value = "Submit"> 
         </form>
         <br>

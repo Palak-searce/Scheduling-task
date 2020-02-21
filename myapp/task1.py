@@ -214,3 +214,8 @@ def show_all_profile():
     f_read = open("data.json","r")
     users = json.load(f_read)
     return users
+
+def get_single_user(uName):
+    f_read = open("data.json","r")
+    users = json.load(f_read)
+    return users[uName]

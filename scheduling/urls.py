@@ -22,5 +22,6 @@ urlpatterns = [
     path('',views.index,name='index'),
     path('/all_profile',views.show_profile,name='all_profile'),
     path('/thank_you',views.thank_you,name='thank_you'),
-    path('/about',views.about,name='about')
+    path('/about',views.about,name='about'),
+    path('/P<uname>\w+',views.detail,name='detail'),
 ]
