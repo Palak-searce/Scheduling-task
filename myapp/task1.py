@@ -22,6 +22,7 @@ def update(users,uName,profile,s,e):
     index = 0
     for u in users[uName]:
         cnt += 1
+        print(cnt)
         profile1 = u["profile"]
         s1 = u["sDate"]
         e1 = u["eDate"]
@@ -33,9 +34,11 @@ def update(users,uName,profile,s,e):
         # |_______|
         #     |_________|
         if s1 < s < e1 < e:
+            print("case 1")
             if not collide:
                 collide = True
-                index += 1
+                if profile != profile1:
+                    index += 1
             if profile == profile1:
                 s = s1
                 # delete
@@ -48,9 +51,11 @@ def update(users,uName,profile,s,e):
         #         |___________|
         # |_________|
         elif s < s1 < e < e1:
+            print("case 2")
             if not collide:
                 collide = True
-                index += 1
+                if profile != profile1:
+                    index += 1
             if profile == profile1:
                 e = e1
                 # delete
@@ -63,9 +68,9 @@ def update(users,uName,profile,s,e):
         # |_________|
         # |_________|
         elif (s1 == s) and (e1 == e):
+            print("case 3")
             if not collide:
                 collide = True
-                index += 1
             # delete
             temp.remove(u)
             cnt -= 1
@@ -74,6 +79,7 @@ def update(users,uName,profile,s,e):
         # |___________________|
         #      |_______|
         elif s1 < s <= e< e1:
+            print("case 4")
             if not collide:
                 collide = True
                 index += 1
@@ -94,9 +100,11 @@ def update(users,uName,profile,s,e):
         # |__________|
         # |_______|
         elif ((s1 == s) and (e < e1)) or ((s1 == s) and (s == e)):
+            print("case 5")
             if not collide:
                 collide = True
-                index += 1
+                if profile != profile1:
+                    index += 1
             if profile == profile1:
                 e = e1
                 # delete
@@ -109,9 +117,11 @@ def update(users,uName,profile,s,e):
         # |___________|
         #    |________|
         elif ((s1 < s) and (e1 == e)) or ((e1 == e) and (s == e)):
+            print("case 6")
             if not collide:
                 collide = True
-                index += 1
+                if profile != profile1:
+                    index += 1
             if profile == profile1:
                 s = s1
                 # delete
@@ -124,9 +134,9 @@ def update(users,uName,profile,s,e):
         # |______|
         # |___________|
         elif ((s1 == s) and (e1 < e)) or ((s1 == s) and (s1 == e1)):
+            print("case 7")
             if not collide:
                 collide = True
-                index += 1
             # delete
             temp.remove(u)
             cnt -= 1
@@ -135,9 +145,9 @@ def update(users,uName,profile,s,e):
         #     |____|
         # |________|
         elif ((e == e1) and (s < s1)) or ((e == e1) and (e1 == s1)):
+            print("case 8")
             if not collide:
                 collide = True
-                index += 1
             # delete
             temp.remove(u)
             cnt -= 1
@@ -146,14 +156,16 @@ def update(users,uName,profile,s,e):
         # |_________|
         #           |_______|
         elif (e1 == s) and (s1 < s < e):
+            print("case 9")
             if not collide:
                 collide = True
-                index += 1
+                if profile != profile1:
+                    index += 1
             if profile == profile1:
                 s = s1
                 # delete
                 temp.remove(u)
-                cnt =- 1
+                cnt -= 1
             else:
                 temp[cnt]["eDate"] = prev_date(s)
 
@@ -161,9 +173,11 @@ def update(users,uName,profile,s,e):
         #           |_________|
         # |_________|
         elif (e == s1) and (s < e < e1):
+            print("case 10")
             if not collide:
                 collide = True
-                index += 1
+                if profile != profile1:
+                    index += 1
             if profile == profile1:
                 e = e1
                 # delete
@@ -176,18 +190,20 @@ def update(users,uName,profile,s,e):
         #      |______|
         # |________________|
         elif s < s1 <= e1 < e:
+            print("case 11")
             if not collide:
                 collide = True
-                index += 1
             # delete
             temp.remove(u)
             cnt -= 1
         
         # no overlaping
         else:
+            print("no overlaping")
             index += 1
             #do nothing
 
+    print(index)
     temp.insert(index,{"profile":profile,"sDate":s,"eDate":e})
     users[uName] = temp[:]
     f_write = open("./data.json","w")
